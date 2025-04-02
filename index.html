@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tharushma's Art Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            transition: background 0.5s ease-in-out;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            max-width: 800px;
+        }
+        .image-card {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .image-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .image-card:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    
+</head>
+<body onmousemove="changeBackground()" onmouseleave="resetBackground()">
+    <h1>Tharushma's Art Creation</h1>
+    <p>I create different types of art, like doodles, charcoal drawings, paintings, and pen art. Each piece is made with creativity and passion, turning ideas into beautiful artwork.</p>
+    <div id="gallery"></div>
+    <div class="form-container">
+        <p>Like to see more arts of mine? Please fill this form!</p>
+        <form onsubmit="handleSubmit(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" onfocus="handleFocus(event)" onblur="handleBlur(event)" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" onfocus="handleFocus(event)" onblur="handleBlur(event)" required>
+            
+            <label for="interest">What kind of art do you like?</label>
+            <select id="interest" name="interest">
+                <option value="doodle">Doodle Art</option>
+                <option value="charcoal">Charcoal Drawing</option>
+                <option value="painting">Painting</option>
+                <option value="pen">Pen Art</option>
+            </select>
+            
+            <label for="message">Any specific art requests or comments?</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const interest = document.getElementById("interest").value;
+            const message = document.getElementById("message").value;
+            alert("Form submitted!\nName: " + name + "\nEmail: " + email + "\nInterest: " + interest + "\nMessage: " + message);
+        }
+
+        function handleFocus(event) {
+            event.target.style.background = "lightyellow";
+        }
+
+        function handleBlur(event) {
+            event.target.style.background = "white";
+        }
+
+        function changeBackground() {
+            document.body.style.backgroundImage = "url('./images/background image.jpg')";
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+        }
+
+        function resetBackground() {
+            document.body.style.background = "#f4f4f4";
+        }
+
+        function loadImages() {
+            const gallery = document.getElementById("gallery");
+            const imageUrls = [
+                "./images/image1.jpeg", "./images/image2.jpeg", "./images/charcoal_1.png", "./images/charcoal_2.png",
+                "./images/doodle_art.png", "./images/image3.jpeg", "./images/image4.jpeg", "./images/image8.png"
+            ];
+            
+            imageUrls.forEach(url => {
+                const card = document.createElement("div");
+                card.className = "image-card";
+                
+                const img = document.createElement("img");
+                img.src = url;
+                img.alt = "Artwork";
+                
+                card.appendChild(img);
+                gallery.appendChild(card);
+            });
+        }
+
+        function changeBackgroundOnScroll() {
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            if (scrollPosition >= documentHeight / 2) {
+                document.body.style.backgroundImage = "url('./images/background2.jpg')";
+            } else {
+                document.body.style.backgroundImage = "url('./images/background image.jpg')";
+            }
+        }
+
+        window.onload = loadImages;
+        window.onscroll = changeBackgroundOnScroll;
+    </script>
+</body>
+</html>
