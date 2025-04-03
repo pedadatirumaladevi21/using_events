@@ -79,6 +79,7 @@
         .image-card:hover {
             transform: scale(1.1);
         }
+        
         .counter-box {
             background: white;
             padding: 20px;
@@ -106,6 +107,32 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        
+        
+        .gif-box {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 20px;
+            width: 300px;
+        }
+
+        .gif-box img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+
         .start { background-color: #28a745; color: white; }
         .stop { background-color: #dc3545; color: white; }
         .reset { background-color: #007bff; color: white; }
@@ -133,6 +160,7 @@
     <h1>Tharushma's Art Gallery</h1>
     <p>I create different types of art, like doodles, charcoal drawings, paintings, and pen art. Each piece is made with creativity and passion, turning ideas into beautiful artwork.</p>
     <div id="gallery"></div>
+    <div class="container">
     <div class="form-container">
         <p>Like to see more arts of mine? Please fill this form!</p>
         <form onsubmit="handleSubmit(event)">
@@ -156,6 +184,7 @@
             <button type="submit">Submit</button>
         </form>
     </div>
+    
     <div class="counter-box">
         <p class="counter-description">Adjust how many images you want to add. Stop the counter to set the limit.</p>
         <div class="counter-container">Counter: <span id="counter">0</span></div>
@@ -163,8 +192,17 @@
             <button class="start" onclick="startCounter()">Start</button>
             <button class="stop" onclick="stopCounter()">Stop</button>
             <button class="reset" onclick="resetCounter()">Reset</button>
+            <div class="gif-box">
+                <img src="./images/animation1.gif" alt="Art Animation">
+            </div>
+            </div>
         </div>
     </div>
+    </div>
+    
+    
+    <p id="offer-text">Limited Offer: Get my art for ₹<span id="price">10</span>! Offer ends in <span id="countdown">35</span> seconds.</p>
+
     <script>
         function handleSubmit(event) {
             event.preventDefault();
@@ -229,7 +267,7 @@
             if (!counterInterval) {
                 counterInterval = setInterval(() => {
                     document.getElementById("counter").innerText = ++counter;
-                }, 1000);
+                }, 10);
             }
         }
 
@@ -243,7 +281,7 @@
             setTimeout(() => {
                 counter = 0;
                 document.getElementById("counter").innerText = counter;
-            }, 500);
+            }, 1);
         }
 
         function subscribeAlert() {
@@ -255,10 +293,31 @@
             setTimeout(() => {
                 document.getElementById("popup").style.display = "none";
             }, 5000);
-        }, 5000);
+        }, 7000);
+
+        function startOfferCountdown() {
+            let timeLeft = 35;
+            const countdownElement = document.getElementById("countdown");
+            const priceElement = document.getElementById("price");
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownElement.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    priceElement.innerText = "50";
+                    document.getElementById("offer-text").innerText = "Offer ended! The price is now ₹50.";
+                }
+            }, 1000);
+        }
+
+        setTimeout(startOfferCountdown, 1000);
+
 
         window.onload = loadImages;
         window.onscroll = changeBackgroundOnScroll;
+
     </script>
 </body>
 </html>
